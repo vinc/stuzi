@@ -13,19 +13,7 @@
 #define RECORDS_MAX 1 << 17
 #define RIR_MAX     5
 
-const char* errors[] = {
-    "stuzi: cannot open '%s’: No such file\n"
-};
-
-typedef struct record
-{
-    unsigned int start;
-    unsigned int stop;
-    char country[3];
-} record;
-
-record records[RECORDS_MAX];
-
+/* Regional Internet registries */
 const char* rirs[RIR_MAX] = {
     "afrinic",
     "apnic",
@@ -34,6 +22,21 @@ const char* rirs[RIR_MAX] = {
     "ripencc"
 };
 
+/* Simplified RIR Statistics Exchange Format */
+typedef struct record
+{
+    unsigned int start; /* First IP address of range */
+    unsigned int stop;  /* Last IP address of range */
+    char country[3];    /* ISO 3166 2-letter country code */
+} record;
+
+/* Records table for lookups */
+record records[RECORDS_MAX];
+
+/*
+ * Find ISO 3166 2-letter country code
+ * associated with IP Address.
+ */
 const char* lookup(unsigned int addr)
 {
     unsigned int i;
@@ -47,6 +50,9 @@ const char* lookup(unsigned int addr)
     return "NOT FOUND";
 }
 
+/*
+ * Load file cache into records table.
+ */
 unsigned int load(const char* cache)
 {
     record* r;
@@ -69,6 +75,9 @@ unsigned int load(const char* cache)
     return n;
 }
 
+/*
+ * Download URL to file with libcurl.
+ */
 void curl_download(char* url, FILE* fp)
 {
     CURL *curl;
@@ -90,6 +99,10 @@ void curl_download(char* url, FILE* fp)
     curl_global_cleanup();
 }
 
+/*
+ * Synchronize file cache with current FTP version
+ * of RIR statistics files.
+ */
 unsigned int sync(const char* cache)
 {
     FILE* fp;
@@ -169,10 +182,13 @@ int main(int argc, char* argv[])
     unsigned int n;
     char* cache = "ipv4.records";
 
-    while ((opt = getopt(argc, argv, "c:sv")) != EOF) {
+    while ((opt = getopt(argc, argv, "c:hsv")) != EOF) {
         switch (opt) {
         case 'c':
             cache = optarg;
+            break;
+        case 'h':
+            // TODO
             break;
         case 's':
             opt_sync = true;
