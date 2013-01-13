@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include <arpa/inet.h>
 #include <curl/curl.h>
 
 #define RECORDS_MAX 1 << 17
@@ -32,27 +33,6 @@ const char* rirs[RIR_MAX] = {
     "lacnic",
     "ripencc"
 };
-
-unsigned int ipv4tou(char* str)
-{
-    unsigned int n = 0;
-    char* x;
-    char ip[16] = "";
-
-    /* Copy string */
-    strncpy(ip, str, sizeof(ip) - 1);
-    ip[sizeof(ip) - 1] = '\0';
-
-    /* Convert dot notation to int */
-    x = strtok(ip, ".");
-    do {
-        n <<= 8;
-        n |= atoi(x);
-    } while ((x = strtok(NULL, ".")) != NULL);
-
-    assert(n < UINT_MAX);
-    return n;
-}
 
 const char* lookup(unsigned int addr)
 {
@@ -156,7 +136,7 @@ unsigned int sync(const char* cache)
             
             if (!strncmp(type, "ipv4", 4)) {
                 record r;                
-                r.start = ipv4tou(start);
+                r.start = htonl(inet_addr(start));
                 r.stop = r.start + value;
                 strncpy(r.country, cc, sizeof(r.country) - 1);
                 r.country[sizeof(r.country) - 1] = '\0';
@@ -217,7 +197,7 @@ int main(int argc, char* argv[])
     }
 
     for (i = optind; i < argc; ++i) {
-        const unsigned int addr = ipv4tou(argv[i]);
+        const unsigned int addr = htonl(inet_addr(argv[i]));
         const char* country = lookup(addr);
 
         if (opt_verbose) {
