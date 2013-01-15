@@ -5,8 +5,8 @@ Stuzi
 Installation
 ------------
 
-    $ git clone git://github.com/vinc/purplehaze.git
-    $ cd purplehaze
+    $ git clone git://github.com/vinc/stuzi.git
+    $ cd stuzi
     $ mkdir build
     $ cd build
     $ cmake ..
