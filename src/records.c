@@ -105,6 +105,11 @@ const int sync(const char* cache)
 
         printf("Fetching '%s' ...\n", url);
         fp = tmpfile();
+        if (fp == NULL) {
+            fprintf(stderr, "stuzi: ");
+            perror(cache);
+            exit(EXIT_FAILURE);
+        }
         curl_download(url, fp);
         rewind(fp);
 
