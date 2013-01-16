@@ -21,7 +21,7 @@
 /*
  * Download URL to file with libcurl.
  */
-void curl_download(char* url, FILE* fp)
+void curl_download(const char* url, FILE* fp)
 {
     CURL *curl;
     CURLcode res;

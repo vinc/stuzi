@@ -38,17 +38,17 @@ extern record records[RECORDS_MAX];
  * Find ISO 3166 2-letter country code
  * associated with IP Address.
  */
-const char* lookup(uint32_t addr);
+const char* lookup(const uint32_t addr);
 
 /*
  * Load file cache into records table.
  */
-int load(const char* cache);
+const int load(const char* cache);
 
 /*
  * Synchronize file cache with current FTP version
  * of RIR statistics files.
  */
-int sync(const char* cache);
+const int sync(const char* cache);
 
 #endif /* !RECORDS_H */

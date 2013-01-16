@@ -40,7 +40,7 @@ record records[RECORDS_MAX];
  * Find ISO 3166 2-letter country code
  * associated with IP Address.
  */
-const char* lookup(uint32_t addr)
+const char* lookup(const uint32_t addr)
 {
     int i;
 
@@ -56,7 +56,7 @@ const char* lookup(uint32_t addr)
 /*
  * Load file cache into records table.
  */
-int load(const char* cache)
+const int load(const char* cache)
 {
     record* r;
     int n = 0;
@@ -82,7 +82,7 @@ int load(const char* cache)
  * Synchronize file cache with current FTP version
  * of RIR statistics files.
  */
-int sync(const char* cache)
+const int sync(const char* cache)
 {
     FILE* fp;
     int n = 0;
@@ -91,8 +91,8 @@ int sync(const char* cache)
     for (i = 0; i < RIR_MAX; ++i) {
         const char* rir = rirs[i];
         char line[128] = "";
-        char filename[32];
-        char url[128];
+        char filename[32] = "";
+        char url[128] = "";
         const char* domain = "ftp.ripe.net";
 
         snprintf(filename, sizeof(filename), "delegated-%s-latest", rir);

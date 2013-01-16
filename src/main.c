@@ -26,8 +26,8 @@ int main(int argc, char* argv[])
 {
     bool opt_sync = false;
     bool opt_verbose = false;
-    int i;
     int opt;
+    int i;
     int n;
     char* cache = "ipv4.records";
 
