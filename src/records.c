@@ -40,7 +40,7 @@ record records[RECORDS_MAX];
  * Find ISO 3166 2-letter country code
  * associated with IP Address.
  */
-const char* lookup(unsigned int addr)
+const char* lookup(uint32_t addr)
 {
     int i;
 
@@ -143,7 +143,8 @@ int sync(const char* cache)
     }
     for (i = 0; i < n; ++i) {
         record* r = &records[i];
-        fprintf(fp, "%u;%u;%s\n", r->start, r->stop, r->country);
+        fprintf(fp, "%u;%u;%s\n", (unsigned int) r->start,
+                (unsigned int) r->stop, r->country);
     }
     fclose(fp);
 

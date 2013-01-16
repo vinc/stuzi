@@ -26,8 +26,8 @@ extern const char* rirs[RIR_MAX];
 /* Simplified RIR Statistics Exchange Format */
 typedef struct record
 {
-    unsigned int start; /* First IP address of range */
-    unsigned int stop;  /* Last IP address of range */
+    uint32_t start; /* First IP address of range */
+    uint32_t stop;  /* Last IP address of range */
     char country[3];    /* ISO 3166 2-letter country code */
 } record;
 
@@ -38,7 +38,7 @@ extern record records[RECORDS_MAX];
  * Find ISO 3166 2-letter country code
  * associated with IP Address.
  */
-const char* lookup(unsigned int addr);
+const char* lookup(uint32_t addr);
 
 /*
  * Load file cache into records table.

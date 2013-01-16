@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
     }
 
     for (i = optind; i < argc; ++i) {
-        const unsigned int addr = htonl(inet_addr(argv[i]));
+        const uint32_t addr = htonl(inet_addr(argv[i]));
         const char* country = lookup(addr);
 
         if (opt_verbose) {
