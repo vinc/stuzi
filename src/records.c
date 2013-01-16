@@ -74,7 +74,11 @@ const int load(const char* cache)
     }
     while (fscanf(fp, format, &r->start, &r->stop, r->country) != EOF);
 
-    fclose(fp);
+    if (fclose(fp)) {
+        fprintf(stderr, "stuzi: ");
+        perror(cache);
+        exit(EXIT_FAILURE);
+    }
     return n;
 }
 
@@ -133,7 +137,11 @@ const int sync(const char* cache)
                 records[n++] = r;
             }
         }
-        fclose(fp);
+        if (fclose(fp)) {
+            fprintf(stderr, "stuzi: ");
+            perror(cache);
+            exit(EXIT_FAILURE);
+        }
     }
     fp = fopen(cache, "w");
     if (fp == NULL) {
@@ -146,7 +154,11 @@ const int sync(const char* cache)
         fprintf(fp, "%u;%u;%s\n", (unsigned int) r->start,
                 (unsigned int) r->stop, r->country);
     }
-    fclose(fp);
+    if (fclose(fp)) {
+        fprintf(stderr, "stuzi: ");
+        perror(cache);
+        exit(EXIT_FAILURE);
+    }
 
     return n;
 }
