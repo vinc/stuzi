@@ -42,7 +42,7 @@ record records[RECORDS_MAX];
  */
 const char* lookup(unsigned int addr)
 {
-    unsigned int i;
+    int i;
 
     for (i = 0; i < RECORDS_MAX; ++i) {
         record* r = &records[i];
@@ -56,10 +56,10 @@ const char* lookup(unsigned int addr)
 /*
  * Load file cache into records table.
  */
-unsigned int load(const char* cache)
+int load(const char* cache)
 {
     record* r;
-    unsigned int n = 0;
+    int n = 0;
     FILE* fp = fopen(cache, "r");
     const char* format = "%10u;%10u;%2s\n";
 
@@ -82,11 +82,11 @@ unsigned int load(const char* cache)
  * Synchronize file cache with current FTP version
  * of RIR statistics files.
  */
-unsigned int sync(const char* cache)
+int sync(const char* cache)
 {
     FILE* fp;
-    unsigned int n = 0;
-    unsigned int i;
+    int n = 0;
+    int i;
 
     for (i = 0; i < RIR_MAX; ++i) {
         const char* rir = rirs[i];

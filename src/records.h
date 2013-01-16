@@ -43,12 +43,12 @@ const char* lookup(unsigned int addr);
 /*
  * Load file cache into records table.
  */
-unsigned int load(const char* cache);
+int load(const char* cache);
 
 /*
  * Synchronize file cache with current FTP version
  * of RIR statistics files.
  */
-unsigned int sync(const char* cache);
+int sync(const char* cache);
 
 #endif /* !RECORDS_H */

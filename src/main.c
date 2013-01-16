@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
     bool opt_verbose = false;
     int i;
     int opt;
-    unsigned int n;
+    int n;
     char* cache = "ipv4.records";
 
     while ((opt = getopt(argc, argv, "c:hsv")) != EOF) {
