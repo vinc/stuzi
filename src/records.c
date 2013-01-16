@@ -66,7 +66,7 @@ const int load(const char* cache)
     if (fp == NULL) {
         fprintf(stderr, "stuzi: ");
         perror(cache);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     do {
@@ -139,7 +139,7 @@ const int sync(const char* cache)
     if (fp == NULL) {
         fprintf(stderr, "stuzi: ");
         perror(cache);
-        exit(1);
+        exit(EXIT_FAILURE);
     }
     for (i = 0; i < n; ++i) {
         record* r = &records[i];
