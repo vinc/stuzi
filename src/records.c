@@ -95,15 +95,13 @@ int sync(const char* cache)
         char url[128];
         const char* domain = "ftp.ripe.net";
 
-        sprintf(filename, "delegated-%s-latest", rir);
-        /* sprintf(domain, "ftp.%s.net", rir); */
-        sprintf(url, "ftp://%s/pub/stats/%s/%s", domain, rir, filename);
+        snprintf(filename, sizeof(filename), "delegated-%s-latest", rir);
+        snprintf(url, sizeof(url), "ftp://%s/pub/stats/%s/%s",
+                 domain, rir, filename);
+
         printf("Fetching '%s' ...\n", url);
-
         fp = tmpfile();
-
         curl_download(url, fp);
-
         rewind(fp);
 
         while (fgets(line, 128, fp)) {
