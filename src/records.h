@@ -24,8 +24,7 @@
 extern const char* rirs[RIR_MAX];
 
 /* Simplified RIR Statistics Exchange Format */
-typedef struct record
-{
+typedef struct record {
     uint32_t start; /* First IP address of range */
     uint32_t stop;  /* Last IP address of range */
     char country[3];    /* ISO 3166 2-letter country code */

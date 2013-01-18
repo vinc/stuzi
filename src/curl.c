@@ -23,7 +23,7 @@
  */
 void curl_download(const char* url, FILE* fp)
 {
-    CURL *curl;
+    CURL* curl;
     CURLcode res;
 
     curl_global_init(CURL_GLOBAL_DEFAULT);

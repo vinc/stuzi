@@ -71,8 +71,7 @@ const int load(const char* cache)
 
     do {
         r = &records[n++];
-    }
-    while (fscanf(fp, format, &r->start, &r->stop, r->country) != EOF);
+    } while (fscanf(fp, format, &r->start, &r->stop, r->country) != EOF);
 
     if (fclose(fp)) {
         fprintf(stderr, "stuzi: ");
@@ -132,9 +131,9 @@ const int sync(const char* cache)
             } else if (!strncmp(cc, "*", 1)) {
                 continue; /* Skip summary */
             }
-            
+
             if (!strncmp(type, "ipv4", 4)) {
-                record r;                
+                record r;
                 r.start = htonl(inet_addr(start)); /* Dot notation to int */
                 r.stop = r.start + value;
                 strncpy(r.country, cc, sizeof(r.country) - 1);
